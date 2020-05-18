@@ -7,7 +7,7 @@ set -f pipeline
 
 # export WORKING_DIR="/work/" 
 # export CLUSTER_CONFIG="${WORKING_DIR}cluster"
-# export AWS_SSH_KEY_NAME="homer-id-rsa"
+# export AWS_SSH_KEY_NAME="windows-ssh-key"
 
 echo "Run installer..."
 
@@ -85,7 +85,7 @@ IP=$(grep 'Successfully created' ${CLUSTER_CONFIG}/windows-node-installer/output
 PASSWORT=$(grep 'Successfully created' ${CLUSTER_CONFIG}/windows-node-installer/output | sed -e "s/.*as user and \(.*\) password.*/\1/")
 CLUSTER_ADDRESS=$( jq -r '.cluster_domain' ${CLUSTER_CONFIG}/terraform.tfvars.json )
 INSTANCE_ID=$(grep 'Successfully created' ${CLUSTER_CONFIG}/windows-node-installer/output | grep -oE "\bi-[0-9a-z]+\b")
-PRIVATE_IP=$(aws ec2  describe-instances --filters Name=instance-id,Values=$INSTANCE_ID  | jq  -r ".Reservations[0].Instances[0].NetworkInterfaces[0].PrivateIpAddress" )
+PRIVATE_IP=$(aws ec2  describe-instances --filters Name=instance-id,Values=$INSTANCE_ID --output json  | jq  -r ".Reservations[0].Instances[0].NetworkInterfaces[0].PrivateIpAddress" )
 
 echo -e "
 [win]
