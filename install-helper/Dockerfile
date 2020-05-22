@@ -23,7 +23,13 @@ RUN yum install -y git && \
     cd /windows-machine-config-bootstrapper && \
     git fetch && git checkout release-4.4
 
+RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
+    echo -e "[azure-cli]\nname=Azure CLI\n\nbaseurl=https://packages.microsoft.com/yumrepos/azure-cli\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/azure-cli.repo && \
+    yum install -y azure-cli
+
+
 ADD aws-create-cluster.sh /usr/local/bin/
+# ADD azure-create-cluster.sh /usr/local/bin/
 
 ENV WORKING_DIR="/work/" 
 ENV CLUSTER_CONFIG="/work/cluster"
