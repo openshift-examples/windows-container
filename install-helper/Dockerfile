@@ -27,6 +27,9 @@ RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
     echo -e "[azure-cli]\nname=Azure CLI\n\nbaseurl=https://packages.microsoft.com/yumrepos/azure-cli\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/azure-cli.repo && \
     yum install -y azure-cli
 
+RUN curl -L  -O https://github.com/mikefarah/yq/releases/download/3.3.0/yq_linux_386 && \
+    chmod +x yq_linux_386 && \
+    mv -v yq_linux_386 /usr/local/bin/yq
 
 ADD aws-create-cluster.sh /usr/local/bin/
 # ADD azure-create-cluster.sh /usr/local/bin/
