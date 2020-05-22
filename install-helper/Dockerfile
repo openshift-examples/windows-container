@@ -31,9 +31,13 @@ RUN curl -L  -O https://github.com/mikefarah/yq/releases/download/3.3.0/yq_linux
     chmod +x yq_linux_386 && \
     mv -v yq_linux_386 /usr/local/bin/yq
 
+# wni based on https://github.com/openshift-examples/windows-machine-config-bootstrapper
+# added westeurope region
+ADD wni-az-with-westeurope /usr/local/bin/
 ADD aws-create-cluster.sh /usr/local/bin/
 # ADD azure-create-cluster.sh /usr/local/bin/
 
 ENV WORKING_DIR="/work/" 
 ENV CLUSTER_CONFIG="/work/cluster"
 ENV AWS_SSH_KEY_NAME="windows-ssh-key"
+WORKDIR /work/
