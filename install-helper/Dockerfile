@@ -35,7 +35,7 @@ RUN curl -L  -O https://github.com/mikefarah/yq/releases/download/3.3.0/yq_linux
 # added westeurope region
 ADD wni-az-with-westeurope /usr/local/bin/
 ADD aws-create-cluster.sh /usr/local/bin/
-# ADD azure-create-cluster.sh /usr/local/bin/
+ADD azure-create-cluster.sh /usr/local/bin/
 
 ENV WORKING_DIR="/work/" 
 ENV CLUSTER_CONFIG="/work/cluster"
